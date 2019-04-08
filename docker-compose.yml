@@ -1,0 +1,28 @@
+version: '3'
+services:
+    php-apache:
+        build:
+            context: ./php-apache
+        ports:
+            - 80:80
+        volumes:
+            - ./src:/var/www/html
+        links:
+            - 'mariadb'
+
+    mariadb:
+        image: mariadb:10.1
+        volumes:
+            - mariadb:/var/lib/mysql
+        ports:
+            - 3306:3306
+        environment:
+            TZ: "America/New_York"
+            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+            MYSQL_ROOT_PASSWORD: "password"
+            MYSQL_USER: 'dev'
+            MYSQL_PASSWORD: 'devpassword'
+            MYSQL_DATABASE: 'abby'
+
+volumes:
+    mariadb:
