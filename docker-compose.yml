@@ -1,28 +1,46 @@
-version: '3'
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: "3.1"
 services:
-    php-apache:
-        build:
-            context: ./php-apache
-        ports:
-            - 80:80
-        volumes:
-            - ./src:/var/www/html
-        links:
-            - 'mariadb'
 
-    mariadb:
-        image: mariadb:10.1
-        volumes:
-            - mariadb:/var/lib/mysql
-        ports:
-            - 3306:3306
-        environment:
-            TZ: "America/New_York"
-            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
-            MYSQL_ROOT_PASSWORD: "password"
-            MYSQL_USER: 'dev'
-            MYSQL_PASSWORD: 'devpassword'
-            MYSQL_DATABASE: 'abby'
+    redis:
+      image: redis:alpine
+      container_name: abbykadabby-redis
 
-volumes:
-    mariadb:
+    mysql:
+      image: mysql:8.0
+      container_name: abbykadabby-mysql
+      working_dir: /application
+      volumes:
+        - .:/application
+      environment:
+        - MYSQL_ROOT_PASSWORD=password
+        - MYSQL_DATABASE=abby
+        - MYSQL_USER=abbyroot
+        - MYSQL_PASSWORD=abbypassword
+      ports:
+        - "8082:3306"
+
+    elasticsearch:
+      image: elasticsearch:6.5.4
+      container_name: abbykadabby-elasticsearch
+
+    webserver:
+      image: nginx:alpine
+      container_name: abbykadabby-webserver
+      working_dir: /var/www/html
+      volumes:
+          - ./src:/var/www/html
+          - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      ports:
+       - "80:80"
+
+    php-fpm:
+      build: phpdocker/php-fpm
+      container_name: abbykadabby-php-fpm
+      working_dir: /application
+      volumes:
+        - .:/application
+        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.3/fpm/conf.d/99-overrides.ini
+
