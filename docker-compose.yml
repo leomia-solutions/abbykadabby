@@ -1,28 +1,35 @@
-version: '3'
-services:
-    php-apache:
-        build:
-            context: ./php-apache
-        ports:
-            - 80:80
-        volumes:
-            - ./src:/var/www/html
-        links:
-            - 'mariadb'
+version: '3.1'
 
-    mariadb:
-        image: mariadb:10.1
-        volumes:
-            - mariadb:/var/lib/mysql
-        ports:
-            - 3306:3306
-        environment:
-            TZ: "America/New_York"
-            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
-            MYSQL_ROOT_PASSWORD: "password"
-            MYSQL_USER: 'dev'
-            MYSQL_PASSWORD: 'devpassword'
-            MYSQL_DATABASE: 'abby'
+services:
+  mysql:  
+    image: mysql:5.7
+    container_name: abby-mysql
+    hostname: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=abbyrootpassword
+      - MYSQL_DATABASE=abby
+      - MYSQL_USER=dev
+      - MYSQL_PASSWORD=devpassword
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  app:
+    build: .
+    container_name: abby-app
+    hostname: api.abbykadabby.com
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "80:80"
+    depends_on:
+      - mysql
 
 volumes:
-    mariadb:
+  mysql-data:
+
+networks:
+  default:
