@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class HelloWorldController extends Controller
+class AuthTestController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -14,8 +14,8 @@ class HelloWorldController extends Controller
         //
     }
 
-    public function hello()
+    public function gate()
     {
-    	return 'Hello World!';
+    	return 'Authenticated!';
     }
 }

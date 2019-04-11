@@ -11,6 +11,40 @@
 |
 */
 
-$router->get('/hello', [
-	'as' => 'hello-world', 'uses' => 'HelloWorldController@hello'
+$router->get('hello', [
+	'as' => 'hello-world', 
+	'uses' => 'Api\V1\HelloWorldController@hello',
 ]);
+
+$router->group(['namespace' => 'API'], function () use ($router) {
+	
+	$router->group(['namespace' => 'V1'], function () use ($router) {
+		
+		$router->group(['prefix' => 'v1'], function () use ($router) {
+
+			$router->group(['prefix' => 'users'], function () use ($router) {
+
+				$router->post('login', [
+					'as' => 'user-login',
+					'uses' => 'UserController@login',
+				]);
+
+			});
+
+		});
+
+	});
+
+});
+
+// Authentication-gated routes
+$router->group(['middleware' => 'auth'], function () use ($router) {
+    $router->get('gate', [ 
+    	'as' => 'gate', 
+    	'uses' => 'AuthTestController@gate',
+    ]);
+
+    $router->get('user/profile', function () {
+        // Uses Auth Middleware
+    });
+});
