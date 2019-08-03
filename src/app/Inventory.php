@@ -16,5 +16,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Inventory extends Model
 {
-	protected $table = 'centers';
+    protected $table = 'centers';
 }
