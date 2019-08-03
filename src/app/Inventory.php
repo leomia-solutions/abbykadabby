@@ -18,6 +18,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Inventory extends Model
 {
 	use SoftDeletes;
-	
-    protected $table = 'centers';
+
+    protected $table = 'inventory';
 }
