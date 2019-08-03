@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $id
@@ -16,5 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Inventory extends Model
 {
+	use SoftDeletes;
+	
     protected $table = 'centers';
 }
