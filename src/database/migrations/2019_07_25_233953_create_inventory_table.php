@@ -22,6 +22,7 @@ class CreateInventoryTable extends Migration
             $table->text('units');
             $table->float('price_per_unit');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
