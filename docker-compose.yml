@@ -2,29 +2,43 @@ version: '3.1'
 
 services:
   mysql:  
-    image: mysql:5.7
-    container_name: abby-mysql
+    build: 
+      context: .
+      dockerfile: Dockerfile-db
+    container_name: freshtomatoes-db
     hostname: mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=abbyrootpassword
-      - MYSQL_DATABASE=abby
+      - MYSQL_ROOT_PASSWORD=freshtomatoes
+      - MYSQL_DATABASE=freshtomatoes
       - MYSQL_USER=dev
       - MYSQL_PASSWORD=devpassword
     restart: unless-stopped
     ports:
-      - 127.0.0.1:3306:3306
+      - "3306:3306"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - mysql-data:/etc/mysql
 
-  app:
+  web:
     build: .
-    container_name: abby-app
-    hostname: api.abbykadabby.com
+    container_name: freshtomatoes-web
+    hostname: www.freshtomatoes.com
     restart: unless-stopped
     volumes:
-      - ./src:/var/www/html
+      - ./src:/var/www/html/
     ports:
       - "80:80"
+    depends_on:
+      - mysql
+
+  api:
+    build: .
+    container_name: freshtomatoes-api
+    hostname: api.freshtomatoes.com
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www/html/
+    ports:
+      - "81:81"
     depends_on:
       - mysql
 
