@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'InventoryController@list')->name('inventoryList');
+Route::get('/inventory/add', 'InventoryController@create')->name('inventoryCreate');
+Route::post('/inventory', 'InventoryController@store')->name('inventoryStore');

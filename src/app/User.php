@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\Encryptable;
+use App\Traits\UuidOnCreation;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,13 +11,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property string $id
- * @property string name
- * @property string email
- * @property string password
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $first_name_lower
+ * @property string $last_name_lower
+ * @property string $email
+ * @property string $password
  */
 class User extends Authenticatable
 {
-    use Notifiable, Encryptable, SoftDeletes;
+    use Notifiable, Encryptable, SoftDeletes, UuidOnCreation;
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +28,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 
+        'first_name',
+        'last_name',
         'email', 
         'password',
     ];
@@ -52,12 +57,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
-
-    public static function boot()
-    {
-        parent::boot();
-        self::creating(function ($model) {
-            $model->id = uuid();
-        });
-    }
 }
