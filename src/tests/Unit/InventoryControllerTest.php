@@ -40,18 +40,20 @@ class InventoryControllerTest extends TestCase
         $this->describe($this->class.'::create()', function () {
             $this->describe('with an anonymous user', function () {
                 $this->should('send the user through the login flow', function () {
-                    $this->assertTrue(false, 'test not implemented');
+                    $response = $this->post(route('inventoryCreate'));
+
+                    $response->assertStatus(300);
                 });
             });
 
             $this->describe('with missing fields in the request', function () {
                 $this->should('redirect the user to the inventory creation form with the data that was originally passed in', function ($description, $quantity, $units, $price) {
-                    $response = $this->post(route('inventoryCreate'), [
+                    $response = $this->post(route('inventoryCreate', [
                         'descrption' => $description,
                         'quantity' => $quantity,
                         'units' => $units,
                         'price_per_unit' => $price,
-                    ]);
+                    ]));
 
                     $response->assertStatus(300);
                 }, [
@@ -66,12 +68,12 @@ class InventoryControllerTest extends TestCase
 
             $this->describe('with invalid inputs', function () {
                 $this->should('redirect the user to the inventory creation form with the data that was originally passed in, along with error messages', function ($description, $quantity, $units, $price) {
-                    $response = $this->post(route('inventoryCreate'), [
+                    $response = $this->post(route('inventoryCreate', [
                         'descrption' => $description,
                         'quantity' => $quantity,
                         'units' => $units,
                         'price_per_unit' => $price,
-                    ]);
+                    ]));
 
                     $response->assertStatus(300);
                 }, [
@@ -87,12 +89,12 @@ class InventoryControllerTest extends TestCase
 
             $this->describe('with a valid request', function () {
                 $this->should('redirect the user to the list page', function () {
-                    $response = $this->post(route('inventoryCreate'), [
+                    $response = $this->post(route('inventoryCreate', [
                         'descrption' => 'tomatoes',
                         'quantity' => 3,
                         'units' => 'lbs',
                         'price_per_unit' => .69,
-                    ]);
+                    ]));
 
                     $response->assertStatus(201);
                 });

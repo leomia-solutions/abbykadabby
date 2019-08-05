@@ -23,6 +23,10 @@ class InventoryController extends Controller
      */
     public function create()
     {
+        $user = auth()->user();
+
+        dd($user);
+
         return view('inventory/create');
     }
 

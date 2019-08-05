@@ -17,6 +17,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $last_name_lower
  * @property string $email
  * @property string $password
+ *
+ * dynamic properties
+ * @property string $full_name
  */
 class User extends Authenticatable
 {
@@ -57,4 +60,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
+
+    public function setFirstNameAttribute($firstName)
+    {
+        $this->attributes['first_name_lower'] = strtolower($firstName) ?? '';
+        $this->attributes['first_name'] = $firstName;
+    }
+
+    public function setLastNameAttribute($lastName)
+    {
+        $this->attributes['last_name_lower'] = strtolower($lastName) ?? '';
+        $this->attributes['last_name'] = $lastName;
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ($this->last_name ? ' ' . $this->last_name : '');
+    }
 }
