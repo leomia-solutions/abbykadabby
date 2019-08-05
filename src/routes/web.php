@@ -11,6 +11,20 @@
 |
 */
 
+// Routes that require a user be authenticated first
+Route::middleware(['auth'])->group(function () {
+
+    // Inventory routes
+    Route::prefix('inventory')->group(function () {
+        Route::post('/', 'InventoryController@store')->name('inventoryStore');
+        Route::get('/add', 'InventoryController@create')->name('inventoryCreate');
+    });
+});
+
+// Routes that can be accessed by anonymous users
 Route::get('/', 'InventoryController@list')->name('inventoryList');
-Route::get('/inventory/add', 'InventoryController@create')->name('inventoryCreate');
-Route::post('/inventory', 'InventoryController@store')->name('inventoryStore');
+
+Route::prefix('login')->group(function () {
+    Route::get('/login', 'UserController@getLogin')->name('login');
+    Route::post('/login', 'UserController@doLogin')->name('doLogin');
+});
