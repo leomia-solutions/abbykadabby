@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Inventory extends Model
 {
-	use SoftDeletes, UuidOnCreation;
+    use SoftDeletes, UuidOnCreation;
 
     protected $table = 'inventory';
 }

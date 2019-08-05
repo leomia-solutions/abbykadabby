@@ -15,14 +15,14 @@ class InventoryControllerTest extends TestCase
      */
     public function testList()
     {
-    	$this->describe('::list()', function () {
-    		$this->describe('when there is at least one inventory record', function () {
-	    		$this->should('return a 200 response with the inventory list view', function () {
-	    			$response = $this->get(route('inventoryList'));
+        $this->describe('::list()', function () {
+            $this->describe('when there is at least one inventory record', function () {
+                $this->should('return a 200 response with the inventory list view', function () {
+                    $response = $this->get(route('inventoryList'));
 
-	    			$response->assertStatus(200);
-	    		});
-    		});
-    	});
+                    $response->assertStatus(200);
+                });
+            });
+        });
     }
 }

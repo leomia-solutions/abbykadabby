@@ -15,9 +15,9 @@ abstract class TestCase extends BaseTestCase
 
     public function setUp(): void
     {
-    	$this->setUpBaseModels();
+        $this->setUpBaseModels();
 
-    	parent::setUp();
+        parent::setUp();
     }
 
     /**
@@ -25,20 +25,20 @@ abstract class TestCase extends BaseTestCase
      */
     public function setUpBaseModels()
     {
-    	$this->defaultUser = $this->createUser();
+        $this->defaultUser = $this->createUser();
     }
 
     /**
      * Creates a basic User
-     * 
+     *
      * @param array $params
-     * 
+     *
      * @return User
      */
     public function createUser(array $params = []): User
     {
-    	return app(User::class, array_merge([
-    		// todo
-    	], $params));
+        return app(User::class, array_merge([
+            // todo
+        ], $params));
     }
 }

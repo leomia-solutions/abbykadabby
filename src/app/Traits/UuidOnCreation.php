@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-trait UuidOnCreation 
+trait UuidOnCreation
 {
     public static function boot()
     {

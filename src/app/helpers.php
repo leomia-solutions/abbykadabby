@@ -1,8 +1,8 @@
 <?php
 
 if (! function_exists('uuid')) {
-	function uuid()
-	{
-		return Uuid::generate()->string;
-	}
+    function uuid()
+    {
+        return Uuid::generate()->string;
+    }
 }
