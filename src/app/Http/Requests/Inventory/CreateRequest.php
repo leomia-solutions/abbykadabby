@@ -27,7 +27,7 @@ class CreateRequest extends FormRequest
             'description'    => 'required',
             'quantity'       => 'required|integer',
             'units'          => 'required|in:ea,lbs,kgs',
-            'price_per_unit' => 'required|numeric',
+            'price_per_unit' => 'required|numeric|min:0',
         ];
     }
 }
