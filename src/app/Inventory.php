@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\UuidOnCreation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -17,7 +18,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Inventory extends Model
 {
-	use SoftDeletes;
+    use SoftDeletes, UuidOnCreation;
+
+    public $incrementing = false;
 
     protected $table = 'inventory';
+
+    protected $fillable = [
+        'user_id',
+        'description',
+        'quantity',
+        'price_per_unit',
+        'units',
+    ];
 }

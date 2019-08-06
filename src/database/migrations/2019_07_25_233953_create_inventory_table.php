@@ -16,7 +16,7 @@ class CreateInventoryTable extends Migration
         Schema::create('inventory', function (Blueprint $table) {
             $table->bigIncrements('serial_no');
             $table->uuid('id');
-            $table->uuid('user_id');
+            $table->uuid('user_id')->nullable();
             $table->text('description');
             $table->float('quantity');
             $table->text('units');
