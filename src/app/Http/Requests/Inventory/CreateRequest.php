@@ -25,7 +25,7 @@ class CreateRequest extends FormRequest
     {
         return [
             'description'    => 'required',
-            'quantity'       => 'integer',
+            'quantity'       => 'integer|nullable',
             'weight'         => 'required|numeric|min:0',
             'weight_units'   => 'required|in:lb,kg',
             'price'          => 'required|numeric|min:0',
