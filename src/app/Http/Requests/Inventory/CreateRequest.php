@@ -25,9 +25,11 @@ class CreateRequest extends FormRequest
     {
         return [
             'description'    => 'required',
-            'quantity'       => 'required|integer',
-            'units'          => 'required|in:ea,lb,kg',
-            'price_per_unit' => 'required|numeric|min:0',
+            'quantity'       => 'integer',
+            'weight'         => 'required|numeric|min:0',
+            'weight_units'   => 'required|in:lb,kg',
+            'price'          => 'required|numeric|min:0',
+            'price_units'    => 'required|in:ea,lb,kg',
         ];
     }
 }

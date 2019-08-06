@@ -11,8 +11,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $user_id
  * @property string $description
  * @property float  $quantity
- * @property string $units
- * @property float  $price_per_unit
+ * @property float  $weight
+ * @property string $weight_units
+ * @property float  $price
+ * @property string $price_units
  *
  * @property \App\User $user
  */
@@ -28,7 +30,9 @@ class Inventory extends Model
         'user_id',
         'description',
         'quantity',
-        'price_per_unit',
-        'units',
+        'weight',
+        'weight_units',
+        'price',
+        'price_units',
     ];
 }

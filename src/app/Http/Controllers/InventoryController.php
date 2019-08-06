@@ -79,8 +79,10 @@ class InventoryController extends Controller
 
         $item->description = $data['description'];
         $item->quantity = $data['quantity'];
-        $item->price_per_unit = $data['price_per_unit'];
-        $item->units = $data['units'];
+        $item->weight = $data['weight'];
+        $item->weight_units = $data['weight_units'];
+        $item->price = $data['price'];
+        $item->price_units = $data['price_units'];
         $item->save();
 
         return redirect(route('inventoryList'));

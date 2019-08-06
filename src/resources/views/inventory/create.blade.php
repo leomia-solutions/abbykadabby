@@ -15,12 +15,24 @@
 	<input type="number" name="quantity" />
 	<br />
 
-	<label for="price">Price:</label>
-	<input type="text" name="price_per_unit" />
+	<label for="weight">Weight:</label>
+	<input type="text" name="weight" />
 	<br />
 
-	<label for="units">Units:</label>
-	<select name="units">
+	<label for="weight_units">Weight Units:</label>
+	<select name="weight_units">
+		<option value="">Select</option>
+		<option value="lb">lbs</option>
+		<option value="kg">kg</option>
+	</select>
+	<br />
+
+	<label for="price">Price:</label>
+	<input type="text" name="price" />
+	<br />
+
+	<label for="price_units">Units:</label>
+	<select name="price_units">
 		<option value="">Select</option>
 		<option value="lb">lbs</option>
 		<option value="kg">kg</option>

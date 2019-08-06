@@ -1,3 +1,7 @@
+up:
+	docker-compose up -d
+shell:
+	docker-compose exec web sh
 test:
 	docker-compose exec web ./vendor/bin/phpunit
 db-migrate:

@@ -15,16 +15,28 @@
 	<input type="number" name="quantity" value="{{ $record->quantity }}" />
 	<br />
 
-	<label for="price">Price:</label>
-	<input type="text" name="price_per_unit" value="{{ $record->price_per_unit }}" />
+	<label for="weight">Weight:</label>
+	<input type="text" name="weight" value="{{ $record->weight }}" />
 	<br />
 
-	<label for="units">Units:</label>
-	<select name="units">
+	<label for="weight_units">Price Units:</label>
+	<select name="weight_units">
 		<option value="">Select</option>
-		<option value="lb" {{ $record->units == "lb" ? "selected" : "" }}>lbs</option>
-		<option value="kg" {{ $record->units == "kg" ? "selected" : "" }}>kg</option>
-		<option value="ea" {{ $record->units == "ea" ? "selected" : "" }}>each</option>
+		<option value="lb" {{ $record->weight_units == "lb" ? "selected" : "" }}>lbs</option>
+		<option value="kg" {{ $record->weight_units == "kg" ? "selected" : "" }}>kg</option>
+	</select>
+	<br />
+
+	<label for="price">Price:</label>
+	<input type="text" name="price" value="{{ $record->price }}" />
+	<br />
+
+	<label for="price_units">Price Units:</label>
+	<select name="price_units">
+		<option value="">Select</option>
+		<option value="lb" {{ $record->price_units == "lb" ? "selected" : "" }}>lbs</option>
+		<option value="kg" {{ $record->price_units == "kg" ? "selected" : "" }}>kg</option>
+		<option value="ea" {{ $record->price_units == "ea" ? "selected" : "" }}>each</option>
 	</select>
 	<br />
 

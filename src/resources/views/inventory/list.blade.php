@@ -15,6 +15,7 @@
 				<tr>
 					<th>Description</th>
 					<th>Quantity</th>
+					<th>Weight</th>
 					<th>Price</th>
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
@@ -25,7 +26,8 @@
 				<tr>
 					<td>{{ $record->description }}</td>
 					<td>{{ $record->quantity }}</td>
-					<td>${{ $record->price_per_unit }} / {{ $record->units }}</td>
+					<td>{{ $record->weight}} {{ $record->weight_units }}s</td>
+					<td>${{ $record->price }} / {{ $record->price_units }}</td>
 					<td><a href="{{ route('inventoryEdit', [$record->id]) }}">Edit</a></td>
 					<td><a href="{{ route('inventoryDelete', [$record->id]) }}">Delete</a></td>
 				</tr>
