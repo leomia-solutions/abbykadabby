@@ -9,14 +9,15 @@
 
 	<div>
 		@if($records->count())
-		<span class='title'>Inventory</span>
+		<p class='title'>Inventory</p>
 		<table>
 			<thead>
 				<tr>
 					<th>Description</th>
 					<th>Quantity</th>
 					<th>Price</th>
-					<th>Seller</th>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -24,8 +25,9 @@
 				<tr>
 					<td>{{ $record->description }}</td>
 					<td>{{ $record->quantity }}</td>
-					<td>${{ $record->price }} / {{ $record->units }}</td>
-					<td>{{ $record->user->first_name }}</td>
+					<td>${{ $record->price_per_unit }} / {{ $record->units }}</td>
+					<td><a href="{{ route('inventoryEdit', [$record->id]) }}">Edit</a></td>
+					<td><a href="{{ route('inventoryDelete', [$record->id]) }}">Delete</a></td>
 				</tr>
 				@endforeach
 			</tbody>

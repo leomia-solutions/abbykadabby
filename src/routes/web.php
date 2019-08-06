@@ -15,16 +15,31 @@
 Route::middleware(['auth'])->group(function () {
 
     // Inventory routes
-    Route::prefix('inventory')->group(function () {
-        Route::post('/', 'InventoryController@store')->name('inventoryStore');
-        Route::get('/add', 'InventoryController@create')->name('inventoryCreate');
-    });
+
+    // TODO: uncomment once user login becomes necessary
+    // Route::prefix('inventory')->group(function () {
+    //     Route::post('/', 'InventoryController@store')->name('inventoryStore');
+    //     Route::get('/add', 'InventoryController@create')->name('inventoryCreate');
+    // });
 });
 
 // Routes that can be accessed by anonymous users
-Route::get('/', 'InventoryController@list')->name('inventoryList');
+
+Route::prefix('inventory')->group(function () {
+    Route::get('/', 'InventoryController@list')->name('inventoryList');
+    Route::get('/create', 'InventoryController@create')->name('inventoryCreate');
+    Route::get('/{item}', 'InventoryController@show')->name('inventoryShow');
+    Route::post('/', 'InventoryController@store')->name('inventoryStore');
+    Route::get('/{item}/edit', 'InventoryController@edit')->name('inventoryEdit');
+    Route::post('/{item}', 'InventoryController@update')->name('inventoryUpdate');
+    Route::get('/{item}/delete', 'InventoryController@delete')->name('inventoryDelete');
+});
+
+Route::get('/', 'InventoryController@list');
 
 Route::prefix('login')->group(function () {
-    Route::get('/login', 'UserController@getLogin')->name('login');
-    Route::post('/login', 'UserController@doLogin')->name('doLogin');
+    Route::get('/', 'UserController@getLogin')->name('login');
+    Route::post('/', 'UserController@doLogin')->name('doLogin');
 });
+
+Route::get('forgotPassword', 'UserController@forgotPassword')->name('forgotPassword');

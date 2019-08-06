@@ -20,5 +20,15 @@ class Inventory extends Model
 {
     use SoftDeletes, UuidOnCreation;
 
+    public $incrementing = false;
+
     protected $table = 'inventory';
+
+    protected $fillable = [
+        'user_id',
+        'description',
+        'quantity',
+        'price_per_unit',
+        'units',
+    ];
 }

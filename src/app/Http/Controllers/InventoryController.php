@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Inventory;
-use App\Http\Request\Inventory\CreateRequest;
+use App\Http\Requests\Inventory\CreateRequest;
+use App\Http\Requests\Inventory\EditRequest;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class InventoryController extends Controller
     {
         $inventory = Inventory::all();
 
-        return view('inventory/list', ['records' => $inventory]);
+        return view('inventory.list', ['records' => $inventory]);
     }
 
     /**
@@ -23,21 +24,21 @@ class InventoryController extends Controller
      */
     public function create()
     {
-        $user = auth()->user();
-
-        dd($user);
-
-        return view('inventory/create');
+        return view('inventory.create');
     }
 
+    /**
+     * Store the inventory item so long as the request is valid
+     *
+     * @param \App\Http\Requests\Inventory\CreateRequest $request
+     */
     public function store(CreateRequest $request)
     {
-        $user = auth()->user();
-        $this->validate($request);
+        $data = $request->validated();
 
-        Inventory::create($request->validated());
+        $item = Inventory::create($request->validated());
 
-        return response('Created', 201);
+        return redirect(route('inventoryList'));
     }
 
     /**
@@ -48,40 +49,54 @@ class InventoryController extends Controller
      */
     public function show($id)
     {
+        dd('something');
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Inventory $item
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Inventory $item)
     {
-        //
+        return view('inventory.edit', ['record' => $item]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request\Inventory\EditRequest  $request
+     * @param  \App\Inventory $item
+     *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditRequest $request, Inventory $item)
     {
-        //
+        $data = $request->validated();
+
+        $item->description = $data['description'];
+        $item->quantity = $data['quantity'];
+        $item->price_per_unit = $data['price_per_unit'];
+        $item->units = $data['units'];
+        $item->save();
+
+        return redirect(route('inventoryList'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Inventory  $item
+     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Inventory $item)
     {
-        //
+        $item->delete();
+
+        return redirect(route('inventoryList'));
     }
 }
