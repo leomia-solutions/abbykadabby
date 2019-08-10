@@ -29,3 +29,10 @@ lint:
 	docker-compose exec web ./vendor/bin/php-cs-fixer fix ./ --dry-run
 fix:
 	docker-compose exec web ./vendor/bin/php-cs-fixer fix ./
+push:
+	git checkout develop
+	git push
+	git checkout master
+	git merge develop
+	git push
+	git checkout develop
