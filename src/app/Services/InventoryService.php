@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Inventory;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
 class InventoryService
 {
@@ -12,27 +12,19 @@ class InventoryService
      *
      * @var string $terms
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function search($terms): Collection
+    public function search($terms): Builder
     {
+        $builder = Inventory::query();
+
         $terms = trim($terms);
-        
-        if (empty($terms)) {
-            return collect(new Inventory());
-        }
-
         $termsArray = explode(' ', $terms);
-
-        $firstTerm = $termsArray[0];
-
-        $builder = Inventory::where('description_lower', 'like', "%{$firstTerm}%");
-        unset($termsArray[0]);
 
         foreach ($termsArray as $term) {
             $builder = $builder->orWhere('description_lower', 'like', "%{$term}%");
         }
 
-        return $builder->get();
+        return $builder;
     }
 }

@@ -48,12 +48,12 @@ class InventoryServiceTest extends TestCase
 
         $this->specify($this->class.'::search', function () {
             $this->describe('passed an empty string', function () {
-                $this->should('return an empty collection', function () {
+                $this->should('return all records', function () {
                     $this->populateInventory();
 
                     $result = $this->service->search('');
 
-                    $this->assertEmpty($result);
+                    $this->assertEquals(10, $result->count());
                 });
             });
 
@@ -76,7 +76,7 @@ class InventoryServiceTest extends TestCase
                     $this->assertEquals(5, $results->count());
 
                     $expectedDescriptions = array_slice($this->inventoryDescriptions, 0, 5);
-                    foreach ($results as $result) {
+                    foreach ($results->get() as $result) {
                         $this->assertContains($result->description_lower, $expectedDescriptions);
                     }
                 });
