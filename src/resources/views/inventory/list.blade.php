@@ -8,9 +8,8 @@
 	</div>
 
 	<div>
-		<form action="{{ route('inventorySearch') }}" method="GET">
-			@csrf
-			<input type="text" placeholder="Search Inventory" name="terms" />
+		<form action="{{ route('apiInventoryList') }}" method="GET">
+			<input type="text" placeholder="Search Inventory" name="description_contains" />
 		</form>
 	</div>
 

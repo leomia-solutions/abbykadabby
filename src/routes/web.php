@@ -29,10 +29,7 @@ Route::prefix('inventory')->group(function () {
     Route::get('/', 'InventoryController@list')->name('inventoryList');
     Route::get('/create', 'InventoryController@create')->name('inventoryCreate');
     Route::get('/{item}', 'InventoryController@show')->name('inventoryShow');
-    Route::post('/', 'InventoryController@store')->name('inventoryStore');
     Route::get('/{item}/edit', 'InventoryController@edit')->name('inventoryEdit');
-    Route::post('/{item}', 'InventoryController@update')->name('inventoryUpdate');
-    Route::get('/{item}/delete', 'InventoryController@delete')->name('inventoryDelete');
 });
 
 Route::get('/', 'InventoryController@list');

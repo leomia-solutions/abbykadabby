@@ -4,7 +4,7 @@ namespace App\Http\Requests\API\Inventory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,12 @@ class SearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'terms' => 'required',
+            'description'    => 'required',
+            'quantity'       => 'integer|nullable',
+            'weight'         => 'required|numeric|min:0',
+            'weight_units'   => 'required|in:lb,kg',
+            'price'          => 'required|numeric|min:0',
+            'price_units'    => 'required|in:ea,lb,kg',
         ];
     }
 }

@@ -1,11 +1,8 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Http\Controllers;
 
-use App\Http\Requests\Inventory\CreateRequest;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class InventoryControllerTest extends TestCase
 {

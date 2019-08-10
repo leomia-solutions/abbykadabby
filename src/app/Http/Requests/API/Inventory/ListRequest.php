@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Inventory;
+namespace App\Http\Requests\API\Inventory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditRequest extends FormRequest
+class ListRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,7 @@ class EditRequest extends FormRequest
     public function rules()
     {
         return [
-            'description'    => 'required',
-            'quantity'       => 'integer|nullable',
-            'weight'         => 'required|numeric|min:0',
-            'weight_units'   => 'required|in:lb,kg',
-            'price'          => 'required|numeric|min:0',
-            'price_units'    => 'required|in:ea,lb,kg',
+            'description_contains' => 'nullable',
         ];
     }
 }
