@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::middleware(['api'])->group(function () {
+	Route::prefix('inventory')->group(function () {
+    	Route::get('search', 'API\InventoryController@search')->name('inventorySearch');
+	});
+});
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

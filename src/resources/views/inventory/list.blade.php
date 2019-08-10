@@ -8,6 +8,13 @@
 	</div>
 
 	<div>
+		<form action="{{ route('inventorySearch') }}" method="GET">
+			@csrf
+			<input type="text" placeholder="Search Inventory" name="terms" />
+		</form>
+	</div>
+
+	<div>
 		@if($records->count())
 		<p class='title'>Inventory</p>
 		<table>
