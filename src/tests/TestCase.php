@@ -5,12 +5,13 @@ namespace Tests;
 use App\Inventory;
 use App\User;
 use Codeception\Specify;
-use Faker\Generator;
+use Faker\Factory;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, Specify;
+    use CreatesApplication, DatabaseTransactions, Specify;
 
     /** @var App\User */
     protected $defaultUser;
@@ -20,11 +21,11 @@ abstract class TestCase extends BaseTestCase
 
     public function setUp(): void
     {
-        $this->faker = new Faker\Generator();
+        parent::setUp();
+
+        $this->faker = Factory::create();
 
         $this->setUpBaseModels();
-
-        parent::setUp();
     }
 
     /**
@@ -45,25 +46,28 @@ abstract class TestCase extends BaseTestCase
     public function createUser(array $params = []): User
     {
         return User::create(array_merge([
-            // todo
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'email' => $this->faker->email,
+            'password' => $this->faker->password,
         ], $params));
     }
 
     /**
      * Creates an inventory item
-     * 
+     *
      * @param array $params
-     * 
+     *
      * @return \App\Inventory
      */
-    public function createInventoryItem(array $params = []): createInventoryItem
+    public function createInventoryItem(array $params = []): Inventory
     {
         return Inventory::create(array_merge([
             'description' => $this->faker->word,
-            'quantity' => $this->faker->integer,
-            'weight' => $this->faker->float,
+            'quantity' => $this->faker->numberBetween(0, 100),
+            'weight' => $this->faker->randomFloat(2, 0, 5),
             'weight_units' => 'lb',
-            'price' => $this->faker->price,
+            'price' => $this->faker->randomFloat(2, 0, 20),
             'price_units' => 'lb',
         ], $params));
     }

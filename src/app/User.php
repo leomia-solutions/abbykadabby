@@ -4,6 +4,7 @@ namespace App;
 
 use App\Traits\Encryptable;
 use App\Traits\UuidOnCreation;
+use App\Utilities\Str;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -63,13 +64,13 @@ class User extends Authenticatable
 
     public function setFirstNameAttribute($firstName)
     {
-        $this->attributes['first_name_lower'] = strtolower($firstName) ?? '';
+        $this->attributes['first_name_lower'] = Str::lower($firstName);
         $this->attributes['first_name'] = $firstName;
     }
 
     public function setLastNameAttribute($lastName)
     {
-        $this->attributes['last_name_lower'] = strtolower($lastName) ?? '';
+        $this->attributes['last_name_lower'] = Str::lower($lastName);
         $this->attributes['last_name'] = $lastName;
     }
 
