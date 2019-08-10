@@ -42,14 +42,14 @@ class InventoryServiceTest extends TestCase
      */
     public function testSearch(): void
     {
-	    $this->afterSpecify(function () {
-	        DB::table('inventory')->truncate();
-	    });
+        $this->afterSpecify(function () {
+            DB::table('inventory')->truncate();
+        });
 
         $this->specify($this->class.'::search', function () {
             $this->describe('passed an empty string', function () {
                 $this->should('return an empty collection', function () {
-			        $this->populateInventory();
+                    $this->populateInventory();
 
                     $result = $this->service->search('');
 
@@ -59,22 +59,21 @@ class InventoryServiceTest extends TestCase
 
             $this->describe('passed a string with a single term', function () {
                 $this->should('return records containing the term as a substring', function () {
-			        $this->populateInventory();
+                    $this->populateInventory();
 
                     $results = $this->service->search('pepper');
 
                     $this->assertEquals(4, $results->count());
-
                 });
             });
 
             $this->describe('passed a string with multiple search terms', function () {
                 $this->should('return records containing all of the search terms as substrings', function () {
-			        $this->populateInventory();
+                    $this->populateInventory();
 
-			        $results = $this->service->search('yellow pepper');
+                    $results = $this->service->search('yellow pepper');
 
-			        $this->assertEquals(5, $results->count());
+                    $this->assertEquals(5, $results->count());
 
                     $expectedDescriptions = array_slice($this->inventoryDescriptions, 0, 5);
                     foreach ($results as $result) {
@@ -87,7 +86,7 @@ class InventoryServiceTest extends TestCase
 
     protected function populateInventory(): void
     {
-    	foreach ($this->inventoryDescriptions as $description) {
+        foreach ($this->inventoryDescriptions as $description) {
             $this->createInventoryItem(['description' => $description]);
         }
     }
