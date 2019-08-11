@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\API\Inventory;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\API\Request;
 
-class ListRequest extends FormRequest
+class ListRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
