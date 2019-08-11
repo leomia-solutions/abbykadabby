@@ -25,7 +25,7 @@ class InventoryController
     {
         $item = Inventory::create($request->validated());
 
-        return response(new InventoryResource($item), 201);
+        return response(['data' => new InventoryResource($item)], 201);
     }
 
     public function show(Inventory $item)

@@ -13,8 +13,6 @@ class InventoryControllerTest extends TestCase
 
 	public function testList()
 	{ 
-		$this->withoutExceptionHandling();
-
 		$this->specify($this->class.'::list()', function () {
 			$this->describe('with no parameters passed', function () {
 				$this->should('return a paginated subset of inventory records', function () {
@@ -82,14 +80,51 @@ class InventoryControllerTest extends TestCase
 			});
 
 			$this->describe('with invalid parameters', function () {
-				$this->should('return a 422', function () {
-					$this->assertTrue(false);
-				});
+				$this->should('return a 422', function ($description, $quantity, $weight, $weightUnits, $price, $priceUnits) {
+					$response = $this->post(route('apiInventoryCreate'), [
+						'description' => $description,
+						'quantity' => $quantity,
+						'weight' => $weight,
+						'weight_units' => $weightUnits,
+						'price' => $price,
+						'priceUnits' => $priceUnits,
+					]);
+
+					$response->assertStatus(422);
+				}, ['examples' => [
+					[null, null, 1.23, 'lb', 1.23, 'ea'],
+					['description', 'non-numeric', 1.23, 'lb', 1.23, 'ea'],
+					['description', 1.23, 1.23, 'lb', 1.23, 'ea'],
+					['description', 1, 'non-numeric', 'lb', 1.23, 'ea'],
+					['description', 1, null, 'lb', 1.23, 'ea'],
+					['description', 1, 1.23, 'oz', 1.23, 'ea'],
+					['description', 1, 1.23, null, 1.23, 'ea'],
+					['description', 1, 1.23, 'lb', 'non-numeric', 'ea'],
+					['description', 1, 1.23, 'lb', null, 'ea'],
+					['description', 1, 1.23, 'lb', 1.23, 'oz'],
+					['description', 1, 1.23, 'lb', 1.23, null],
+				]]);
 			});
 
 			$this->describe('with valid parameters', function () {
 				$this->should('create a new resource and return a 201', function () {
-					$this->assertTrue(false);
+					$values = [
+						'description' => 'description',
+						'quantity' => 12,
+						'weight' => 1.23,
+						'weight_units' => 'lb',
+						'price' => 17.50,
+						'price_units' => 'kg',
+					];
+					$response = $this->post(route('apiInventoryCreate'), $values);
+
+					$response->assertStatus(201);
+
+					$contents = json_decode($response->getContent(), true);
+
+					foreach ($values as $key => $value) {
+						$this->assertEquals($value, $contents['data'][$key]);
+					}
 				});
 			});
 		});
