@@ -4,7 +4,7 @@
 
 @section('content')
 
-<form method="POST" action="{{ route('inventoryUpdate', $record->id) }}">
+<form method="POST" action="{{ route('apiInventoryUpdate', $record->id) }}">
 	@csrf
 
 	@if ($errors->has('description'))

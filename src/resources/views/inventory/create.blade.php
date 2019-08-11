@@ -4,9 +4,7 @@
 
 @section('content')
 
-<form method="POST" action="{{ route('inventoryStore') }}">
-	@csrf
-
+<form method="POST" action="{{ route('apiInventoryCreate') }}">
 	@if ($errors->has('description'))
 	<div class="error">{{ $errors->first('description') }}</div>
 	@endif
