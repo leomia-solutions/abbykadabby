@@ -2,10 +2,11 @@
 
 namespace App;
 
+use App\User;
 use App\Traits\UuidOnCreation;
-use App\Utilities\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 /**
  * @property string $id
@@ -45,5 +46,10 @@ class Inventory extends Model
     {
         $this->attributes['description_lower'] = Str::lower($description);
         $this->attributes['description'] = $description;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

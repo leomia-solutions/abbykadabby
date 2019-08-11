@@ -2,13 +2,14 @@
 
 namespace App;
 
-use App\Traits\Encryptable;
+use App\Inventory;
 use App\Traits\UuidOnCreation;
-use App\Utilities\Str;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticable;
+use Illuminate\Support\Str;
 
 /**
  * @property string $id
@@ -18,13 +19,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $last_name_lower
  * @property string $email
  * @property string $password
+ * @property string $api_token
  *
  * dynamic properties
  * @property string $full_name
  */
-class User extends Authenticatable
+class User extends Authenticable
 {
-    use Notifiable, Encryptable, SoftDeletes, UuidOnCreation;
+    use Notifiable, SoftDeletes, UuidOnCreation;
+    
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.
@@ -36,6 +40,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'api_token',
     ];
 
     /**
@@ -48,10 +53,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected $encryptable = [
-        'password',
-    ];
-
     /**
      * The attributes that should be cast to native types.
      *
@@ -61,6 +62,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
+    }
 
     public function setFirstNameAttribute($firstName)
     {
@@ -77,5 +83,15 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return $this->first_name . ($this->last_name ? ' ' . $this->last_name : '');
+    }
+
+    public function inventoryItems()
+    {
+        return $this->hasMany(Inventory::class);
+    }
+
+    public function scopeAuthenticatedBy($query, $username, $password)
+    {
+        return $query->where('email', $username)->where('password', Hash::make($password));
     }
 }

@@ -8,6 +8,7 @@ use Codeception\Specify;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Str;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -36,6 +37,13 @@ abstract class TestCase extends BaseTestCase
         $this->defaultUser = $this->createUser();
     }
 
+    public function responseData($response)
+    {
+        $data = json_decode($response->getContent(), true);
+
+        return $data['data'];
+    }
+
     /**
      * Creates a basic User
      *
@@ -50,6 +58,7 @@ abstract class TestCase extends BaseTestCase
             'last_name' => $this->faker->lastName,
             'email' => $this->faker->email,
             'password' => $this->faker->password,
+            'api_token' => Str::random(60),
         ], $params));
     }
 

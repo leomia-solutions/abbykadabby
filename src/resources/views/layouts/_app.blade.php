@@ -1,24 +1,17 @@
+<!DOCTYPE html>
 <html>
-    <head>
-    	@if (env('APP_ENV') == 'prd')
-
-		<!-- production version, optimized for size and speed -->
-		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-
-		@else
-
-		<!-- development version, includes helpful console warnings -->
-		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
-		@endif
-
-		@yield('js')
-
-        <title>Fresh Tomatoes - @yield('title')</title>
-    </head>
-    <body>
-        <div class="container">
-            @yield('content')
-        </div>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{csrf_token()}}">
+    <title>@yield('title')</title>
+    <link href=" {{ mix('css/app.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <app></app>
+    </div>
+    <script src="{{ mix('js/app.js') }}"></script>
+</body>
 </html>

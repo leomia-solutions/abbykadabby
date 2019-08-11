@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class UserTableSeeder extends Seeder
 {
@@ -18,6 +19,7 @@ class UserTableSeeder extends Seeder
             'last_name' => 'Campo',
             'email'    => 'matt.campo@leomiasolutions.com',
             'password' => 'password',
+            'api_token' => Str::random(60),
         ]);
     }
 }

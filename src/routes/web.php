@@ -39,4 +39,8 @@ Route::prefix('login')->group(function () {
     Route::post('/', 'UserController@doLogin')->name('doLogin');
 });
 
+Route::prefix('users')->group(function () {
+    Route::get('register', 'UserController@register')->name('registerUser');
+});
+
 Route::get('forgotPassword', 'UserController@forgotPassword')->name('forgotPassword');

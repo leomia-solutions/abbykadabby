@@ -21,6 +21,11 @@ class UserController extends Controller
         return view('forgotPassword');
     }
 
+    public function register()
+    {
+        return view('users.register');
+    }
+
     public function doLogin(LoginRequest $request)
     {
         if (Auth::attempt($request->validated())) {
