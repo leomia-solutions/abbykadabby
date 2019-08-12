@@ -7,9 +7,10 @@ use App\Http\Requests\API\Users\CreateRequest;
 use App\Http\Requests\API\Users\LoginRequest;
 use App\Http\Requests\API\Users\UpdateRequest;
 use App\Http\Resources\UserResource;
+use App\Services\UserService;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
 class UserController
@@ -21,7 +22,7 @@ class UserController
      *
      * @return \Illuminate\Http\Response
      */
-    public function list()
+    public function list(): Response
     {
         //
     }
@@ -33,7 +34,7 @@ class UserController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(CreateRequest $request)
+    public function create(CreateRequest $request): Response
     {
         $data = $request->validated();
 
@@ -44,19 +45,19 @@ class UserController
         return response(['data' => new UserResource(User::create($data))], 201);
     }
 
-    public function login(LoginRequest $request)
+    /**
+     * @param \App\Http\Requests\API\Users\LoginRequest $request
+     * @param \App\Services\UserService $service
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function login(LoginRequest $request, UserService $service): Response
     {
         $data = $request->validated();
 
-        $user = User::where('email', $data['email'])->first();
+        $user = $service->authenticate($data['email'], $data['password']);
 
-        if (!($user && Hash::check($data['password'], $user->password))) {
-            abort(404);
-        }
-
-        Auth::loginUsingId($user->id);
-
-        return new UserResource($user);
+        return response(['data' => new UserResource($user)], 200);
     }
 
     /**
@@ -66,7 +67,7 @@ class UserController
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id): Response
     {
         //
     }
@@ -79,7 +80,7 @@ class UserController
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, $id)
+    public function update(UpdateRequest $request, $id): Response
     {
         //
     }

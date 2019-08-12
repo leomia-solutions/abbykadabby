@@ -14,6 +14,9 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, DatabaseTransactions, Specify;
 
+    /** @var string */
+    protected $class;
+
     /** @var App\User */
     protected $defaultUser;
 

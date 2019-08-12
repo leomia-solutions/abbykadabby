@@ -4,13 +4,16 @@ namespace Tests\Unit;
 
 use App\User;
 use App\Http\Controllers\API\UserController;
+use Facades\App\Services\UserService;
+use Mockery as m;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
     protected $class = UserController::class;
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $this->specify($this->class.'::create()', function () {
             $this->describe('when passed invalid parameters', function () {
@@ -71,13 +74,22 @@ class UserControllerTest extends TestCase
         });
     }
 
-    public function testLogin()
+    public function testLogin(): void
     {
     	$this->specify($this->class.'::login()', function () {
     		$this->describe('when passed a valid email and password', function () {
     			$this->should('log the user in and return the user object', function () {
+    				$password = 'test_password';
+
+    				$this->defaultUser->password = $password;
+    				$this->defaultUser->save();
+
 					$email = $this->defaultUser->email;
-					$password = $this->defaultUser->password;
+
+					UserService::shouldReceive('authenticate')
+						->with($email, $password)
+						->once()
+						->andReturn($this->defaultUser);
 
 					$response = $this->post(route('apiUserLogin'), [
 						'email' => $email,
@@ -93,6 +105,7 @@ class UserControllerTest extends TestCase
 						'first_name' => $this->defaultUser->first_name,
 						'last_name' => $this->defaultUser->last_name,
 						'email' => $this->defaultUser->email,
+						'full_name' => $this->defaultUser->full_name,
 					], $this->responseData($response));
     			});
     		});
@@ -100,18 +113,31 @@ class UserControllerTest extends TestCase
     		$this->describe('when passed a username or password that is not in our system', function () {
     			$this->should('return a 404', function () {
     				$email = $this->defaultUser->email;
-    				$password = $this->defaultUser->password;
+					$password = $this->faker->password(9);
+
+					UserService::shouldReceive('authenticate')
+						->with($email, $password)
+						->once()
+						->andThrow(new NotFoundHttpException());
 
     				$response = $this->post(route('apiUserLogin'), [
     					'email' => $email,
-    					'password' => $this->faker->password(9),
+    					'password' => $password,
     				]);
 
     				$response->assertStatus(404);
 
+    				$email = $this->faker->email;
+    				$password = $this->faker->password(9);
+
+					UserService::shouldReceive('authenticate')
+						->with($email, $password)
+						->once()
+						->andThrow(new NotFoundHttpException());
+
     				$response = $this->post(route('apiUserLogin'), [
-    					'email' => $this->faker->email,
-    					'password' => $this->faker->password(9),
+    					'email' => $email,
+    					'password' => $password,
     				]);
 
     				$response->assertStatus(404);
@@ -124,6 +150,11 @@ class UserControllerTest extends TestCase
     				$password = $this->defaultUser->password;
 
     				$this->defaultUser->delete();
+    				
+					UserService::shouldReceive('authenticate')
+						->with($email, $password)
+						->once()
+						->andThrow(new NotFoundHttpException());
 
     				$response = $this->post(route('apiUserLogin'), [
     					'email' => $email,

@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticable;
 use Illuminate\Support\Str;
+use Log;
 
 /**
  * @property string $id
@@ -92,6 +93,6 @@ class User extends Authenticable
 
     public function scopeAuthenticatedBy($query, $username, $password)
     {
-        return $query->where('email', $username)->where('password', Hash::make($password));
+        return $query->where('email', $username)->where('password', $password);// Hash::make($password));
     }
 }
