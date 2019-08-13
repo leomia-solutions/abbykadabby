@@ -18,4 +18,15 @@ class UserPolicy
     {
         //
     }
+
+    /**
+     * @param \App\User $wantsToView
+     * @param \App\User $userToView
+     *
+     * @return bool
+     */
+    public function view(User $wantsToView, User $userToView): bool
+    {
+        return ($wantsToView->isAdmin() || $wantsToView == $userToView);
+    }
 }

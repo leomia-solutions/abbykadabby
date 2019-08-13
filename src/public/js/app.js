@@ -2067,8 +2067,8 @@ __webpack_require__.r(__webpack_exports__);
           password: this.password,
           c_password: this.password_confirmation
         }).then(function (response) {
-          localStorage.setItem('user', response.data.success.email);
-          localStorage.setItem('jwt', response.data.success.token);
+          localStorage.setItem('user', response.data.email);
+          localStorage.setItem('jwt', response.data.api_token);
 
           if (localStorage.getItem('jwt') != null) {
             _this.$router.go('/board');

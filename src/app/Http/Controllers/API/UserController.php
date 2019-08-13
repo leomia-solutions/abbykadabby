@@ -48,7 +48,7 @@ class UserController
     /**
      * @param \App\Http\Requests\API\Users\LoginRequest $request
      * @param \App\Services\UserService $service
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function login(LoginRequest $request, UserService $service): Response
@@ -61,26 +61,40 @@ class UserController
     }
 
     /**
+     * @return \Illuminate\Http\Resposne
+     */
+    public function me(): Response
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            abort(404);
+        }
+
+        return response(['data' => new UserResource($user)], 200);
+    }
+
+    /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\User  $user
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id): Response
+    public function show($id, UserService $service): Response
     {
-        //
+        return response(['data' => new UserResource($service->findOrFail($id))], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\Users\UpdateRequest  $request
-     * @param  int  $id
+     * @param  \App\User  $user
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, $id): Response
+    public function update(UpdateRequest $request, User $user): Response
     {
         //
     }
@@ -88,11 +102,11 @@ class UserController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\User $user
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
     }

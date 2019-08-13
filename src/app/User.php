@@ -28,6 +28,8 @@ use Log;
 class User extends Authenticable
 {
     use Notifiable, SoftDeletes, UuidOnCreation;
+
+    const ROLE_ADMIN = 'admin';
     
     public $incrementing = false;
 
@@ -60,6 +62,7 @@ class User extends Authenticable
      * @var array
      */
     protected $casts = [
+        'roles' => 'array',
         'email_verified_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
@@ -94,5 +97,54 @@ class User extends Authenticable
     public function scopeAuthenticatedBy($query, $username, $password)
     {
         return $query->where('email', $username)->where('password', $password);// Hash::make($password));
+    }
+
+    /**
+     * @param string $role
+     *
+     * @return $this
+     */
+    protected function addRole($role): self
+    {
+        $roles = $this->roles;
+        $roles[] = $role;
+        $roles = array_unique($roles);
+
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @param string $role
+     *
+     * @return $this
+     */
+    protected function revokeRole($role): self
+    {
+        $roles = $this->roles;
+        $roles = array_diff($roles, [$role]);
+
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function makeAdmin(): self
+    {
+        return $this->addRole(self::ROLE_ADMIN);
+    }
+
+    public function revokeAdmin(): self
+    {
+        return $this->revokeRole(self::ROLE_ADMIN);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->roles && in_array(self::ROLE_ADMIN, $this->roles);
     }
 }

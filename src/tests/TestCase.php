@@ -7,6 +7,7 @@ use App\User;
 use Codeception\Specify;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Str;
 
@@ -40,7 +41,12 @@ abstract class TestCase extends BaseTestCase
         $this->defaultUser = $this->createUser();
     }
 
-    public function responseData($response)
+    /**
+     * @param \Illuminate\Foundation\Testing\TestResponse
+     *
+     * @return ?array
+     */
+    public function responseData(TestResponse $response): ?array
     {
         $data = json_decode($response->getContent(), true);
 

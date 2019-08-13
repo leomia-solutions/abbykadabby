@@ -89,8 +89,8 @@
                         c_password : this.password_confirmation
                       })
                       .then(response => {
-                        localStorage.setItem('user',response.data.success.email)
-                        localStorage.setItem('jwt',response.data.success.token)
+                        localStorage.setItem('user',response.data.email)
+                        localStorage.setItem('jwt',response.data.api_token)
 
                         if (localStorage.getItem('jwt') != null){
                             this.$router.go('/board')

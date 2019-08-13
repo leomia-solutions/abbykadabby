@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware(['api'])->group(function () {
-	Route::post('login', 'API\UserController@login')->name('apiUserLogin');
+    Route::post('login', 'API\UserController@login')->name('apiUserLogin');
 
     Route::prefix('inventory')->group(function () {
         Route::get('/', 'API\InventoryController@list')->name('apiInventoryList');
@@ -29,6 +29,9 @@ Route::middleware(['api'])->group(function () {
     });
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::prefix('users')->group(function () {
+        Route::get('me', 'API\UserController@me')->name('apiUserMe');
+        Route::get('{$id}', 'API\UserController@show')->name('apiUserShow');
+    });
 });
