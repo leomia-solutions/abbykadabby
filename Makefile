@@ -25,6 +25,9 @@ db-refresh:
 	docker-compose exec web php artisan migrate:reset
 	docker-compose exec web php artisan migrate
 	docker-compose exec web php artisan db:seed
+	make passport
+passport:
+	docker-compose exec web php artisan passport:client --password
 lint:
 	docker-compose exec web ./vendor/bin/php-cs-fixer fix ./ --dry-run
 fix:

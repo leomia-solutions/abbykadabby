@@ -66,10 +66,7 @@ class UserControllerTest extends TestCase
                         'last_name' => $user->last_name,
                         'full_name' => $user->full_name,
                         'email' => $user->email,
-                        'api_token' => $user->api_token,
                     ], $data['data']);
-
-                    $this->assertNotNull($user->api_token);
                 });
             });
         });
@@ -80,9 +77,7 @@ class UserControllerTest extends TestCase
         $this->specify($this->class.'::show()', function () {
             $this->describe('for a uuid that does not exist', function () {
                 $this->should('return a 404', function () {
-                    $response = $this->withHeaders([
-                            'Authorization' => 'Bearer '.$this->defaultUser->api_token,
-                        ])->get(route('apiUserShow', uuid()));
+                    $response = $this->get(route('apiUserShow', uuid()));
 
                     $response->assertStatus(404);
                 });
@@ -100,9 +95,7 @@ class UserControllerTest extends TestCase
                 $this->should('return a 404', function () {
                     $user = $this->createUser();
 
-                    $response = $this->withHeaders([
-                            'Authorization' => 'Bearer '.$user->api_token,
-                        ])->get(route('apiUserShow', $this->defaultUser->id));
+                    $response = $this->get(route('apiUserShow', $this->defaultUser->id));
 
                     $response->assertStatus(404);
                 });
@@ -112,9 +105,7 @@ class UserControllerTest extends TestCase
                 $this->should('return a 200 and their user data', function () {
                     $user = $this->createUser();
 
-                    $response = $this->withHeaders([
-                            'Authorization' => 'Bearer '.$user->api_token,
-                        ])->get(route('apiUserShow', $user->id));
+                    $response = $this->get(route('apiUserShow', $user->id));
 
                     $response->assertStatus(200);
 
@@ -131,10 +122,7 @@ class UserControllerTest extends TestCase
 
                     $user = $this->createUser();
 
-                    $response = $this->withHeaders([
-                            'Authorization' => 'Bearer '.$this->defaultUser->api_token,
-                        ])
-                        ->get(route('apiUserShow', $user->id));
+                    $response = $this->get(route('apiUserShow', $user->id));
 
                     $response->assertStatus(200);
 
@@ -195,7 +183,6 @@ class UserControllerTest extends TestCase
                         'last_name' => $this->defaultUser->last_name,
                         'email' => $this->defaultUser->email,
                         'full_name' => $this->defaultUser->full_name,
-                        'api_token' => $this->defaultUser->api_token,
                     ], $this->responseData($response));
                 });
             });

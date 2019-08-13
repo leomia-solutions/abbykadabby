@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticable;
 use Illuminate\Support\Str;
+use Laravel\Passport\HasApiTokens;
 use Log;
 
 /**
@@ -27,7 +28,7 @@ use Log;
  */
 class User extends Authenticable
 {
-    use Notifiable, SoftDeletes, UuidOnCreation;
+    use HasApiTokens, Notifiable, SoftDeletes, UuidOnCreation;
 
     const ROLE_ADMIN = 'admin';
     
@@ -43,7 +44,6 @@ class User extends Authenticable
         'last_name',
         'email',
         'password',
-        'api_token',
     ];
 
     /**
@@ -67,7 +67,18 @@ class User extends Authenticable
         'deleted_at' => 'datetime',
     ];
 
-    public function setPasswordAttribute($password)
+    /**
+    * Validate the password of the user for the Passport password grant.
+    *
+    * @param  string $password
+    * @return bool
+    */
+    public function validateForPassportPasswordGrant($password): bool
+    {
+        return Hash::check($password, $this->password);
+    }
+
+    public function setPasswordAttribute($password): void
     {
         $this->attributes['password'] = Hash::make($password);
     }

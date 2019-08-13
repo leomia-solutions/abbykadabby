@@ -19,7 +19,6 @@ class UserTableSeeder extends Seeder
             'last_name' => 'Campo',
             'email'    => 'matt.campo@leomiasolutions.com',
             'password' => 'password',
-            'api_token' => Str::random(60),
         ]);
     }
 }

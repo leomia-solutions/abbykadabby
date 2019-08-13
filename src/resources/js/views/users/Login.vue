@@ -53,16 +53,18 @@
                 e.preventDefault()
 
                 if (this.password.length > 0) {
-                    axios.post('api/login', {
-                        email: this.email,
+                    axios.post('oauth/token', {
+                        grant_type: 'password',
+                        client_id: 1,
+                        client_secret: 'ofUApR6EtU5Qg4FnAofJUUFUrr6ojc96ADcNlyJb',
+                        username: this.email,
                         password: this.password
                       })
                       .then(response => {
-                        localStorage.setItem('user',response.data.success.name)
-                        localStorage.setItem('jwt',response.data.success.token)
+                        localStorage.setItem('jwt',response.access_token)
 
                         if (localStorage.getItem('jwt') != null){
-                            this.$router.go('/board')
+                            this.$router.go('/inventory')
                         }
                       })
                       .catch(function (error) {
@@ -73,7 +75,7 @@
         },
         beforeRouteEnter (to, from, next) { 
             if (localStorage.getItem('jwt')) {
-                return next('board');
+                return next('inventory');
             }
 
             next();
