@@ -39,3 +39,5 @@ push:
 	git merge develop
 	git push
 	git checkout develop
+vue:
+	docker-compose exec web npm run dev

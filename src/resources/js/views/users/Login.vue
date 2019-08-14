@@ -61,7 +61,7 @@
                         password: this.password
                       })
                       .then(response => {
-                        localStorage.setItem('jwt',response.access_token)
+                        localStorage.setItem('jwt',response.data.access_token)
 
                         if (localStorage.getItem('jwt') != null){
                             this.$router.go('/inventory')

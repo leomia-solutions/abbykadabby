@@ -14,7 +14,7 @@ class AddOauthUserIdAsUuid extends Migration
     public function up()
     {
         Schema::table('oauth_access_tokens', function (Blueprint $table) {
-            $table->uuid('user_id');
+            $table->uuid('user_id')->index()->nullable();
         });
     }
 

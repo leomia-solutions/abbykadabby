@@ -6,6 +6,7 @@ use App\User;
 use App\Http\Requests\API\Users\CreateRequest;
 use App\Http\Requests\API\Users\LoginRequest;
 use App\Http\Requests\API\Users\UpdateRequest;
+use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Services\UserService;
 use Auth;
@@ -20,11 +21,11 @@ class UserController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\UserCollection
      */
-    public function list(): Response
+    public function list(): UserCollection
     {
-        //
+        return new UserCollection(User::query()->paginate());
     }
 
     /**

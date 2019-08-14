@@ -25,6 +25,7 @@ Route::middleware(['api'])->group(function () {
     });
 
     Route::prefix('users')->group(function () {
+    	Route::get('/', 'API\UserController@list')->name('apiUserList');
         Route::post('/', 'API\UserController@create')->name('apiUserCreate');
     });
 });

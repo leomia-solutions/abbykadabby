@@ -1,19 +1,19 @@
 <template>
-	<table>
-	    <thead>
-	        <tr>
-	            <th>Description</th>
-	            <th>Quantity</th>
-	            <th>Weight</th>
-	            <th>Price</th>
-	        </tr>
-	    </thead>
-	    <tbody>
-	    	<tr v-for="item in items">
-	    		<ItemRows v-bind:items="items">
-	    	</tr>
-	    </tbody>
-	</table>
+	<div>
+		<table>
+		    <thead>
+		        <tr>
+		            <th>Description</th>
+		            <th>Quantity</th>
+		            <th>Weight</th>
+		            <th>Price</th>
+		        </tr>
+		    </thead>
+		    <tbody v-for="item in items">
+		    	<ItemRow v-bind:item="item" />
+		    </tbody>
+		</table>
+	</div>
 </template>
 
 <script>
@@ -21,13 +21,15 @@
 
 	export default {
 		name: "InventoryTable",
-		props: "items"
+		props: [
+			"inventory"
+		],
 		components: {
-			ItemRows
+			ItemRow
 		},
 		data(){
 			return {
-				items: []
+				items: this.inventory.items
 			}
 		}
 	}

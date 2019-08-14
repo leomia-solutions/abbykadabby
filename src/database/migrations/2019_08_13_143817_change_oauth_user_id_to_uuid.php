@@ -26,7 +26,7 @@ class ChangeOauthUserIdToUuid extends Migration
     public function down()
     {
         Schema::table('oauth_access_tokens', function (Blueprint $table) {
-            $table->bigint('user_id');
+            $table->bigInteger('user_id', false, true)->index()->nullable();
         });
     }
 }

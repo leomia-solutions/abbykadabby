@@ -16,6 +16,10 @@ class InventoryControllerTest extends TestCase
         $this->specify($this->class.'::list()', function () {
             $this->describe('with no parameters passed', function () {
                 $this->should('return a paginated subset of inventory records', function () {
+                    foreach (range(1,10) as $i) {
+                        $this->createInventoryItem();
+                    }
+
                     InventoryService::shouldReceive('search')
                         ->with('')
                         ->passthru();
@@ -29,6 +33,20 @@ class InventoryControllerTest extends TestCase
                     $this->assertArrayHasKey('data', $content);
                     $this->assertArrayHasKey('links', $content);
                     $this->assertArrayHasKey('meta', $content);
+
+                    $data = $this->responseData($response);
+
+                    $this->assertEquals(10, count($data));
+
+                    $this->assertArrayStructure([
+                        'id',
+                        'description',
+                        'quantity',
+                        'weight',
+                        'weight_units',
+                        'price',
+                        'price_units',
+                    ], $data[0]);
                 });
             });
 

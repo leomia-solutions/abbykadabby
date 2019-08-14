@@ -89,4 +89,13 @@ abstract class TestCase extends BaseTestCase
             'price_units' => 'lb',
         ], $params));
     }
+
+    /**
+     * Asserts a specific array contains the entire expected structure
+     */
+    public function assertArrayStructure(array $expectedStructure, $data) {
+        foreach ($expectedStructure as $expectedKey) {
+            $this->assertArrayHasKey($expectedKey, $data);
+        }
+    }
 }

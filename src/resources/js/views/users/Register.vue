@@ -93,7 +93,7 @@
                         localStorage.setItem('jwt',response.data.api_token)
 
                         if (localStorage.getItem('jwt') != null){
-                            this.$router.go('/board')
+                            this.$router.go('/inventory')
                         }
                       })
                       .catch(error => {
@@ -109,7 +109,7 @@
         },
         beforeRouteEnter (to, from, next) { 
             if (localStorage.getItem('jwt')) {
-                return next('board');
+                return next('inventory');
             }
 
             next();
