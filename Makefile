@@ -12,6 +12,7 @@ shell:
 	docker-compose exec web sh
 test:
 	docker-compose exec web php artisan migrate:refresh --env=testing
+	docker-compose exec web php artisan db:seed --class=AuthSeeder --env=testing
 	docker-compose exec web ./vendor/bin/phpunit
 test-one:
 	docker-compose exec web ./vendor/bin/phpunit --filter="$(file)"

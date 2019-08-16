@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\User;
 use App\Http\Controllers\API\UserController;
+use App\User;
 use Facades\App\Services\UserService;
 use Mockery as m;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -12,6 +12,16 @@ use Tests\TestCase;
 class UserControllerTest extends TestCase
 {
     protected $class = UserController::class;
+
+    /** @var \App\Services\UserService */
+    protected $service;
+
+    public function setUp(): void
+    {
+    	parent::setUp();
+
+    	$this->service = new UserService();
+    }
 
     public function testCreate(): void
     {
@@ -138,14 +148,30 @@ class UserControllerTest extends TestCase
     {
         $this->specify($this->class.'::me()', function () {
             $this->describe('for an anonymous user', function () {
-                $this->should('return a 404', function () {
-                    $this->markTestIncomplete();
+                $this->should('return a 403', function () {
+                    $response = $this->get(route('apiUserMe'));
+
+                    $response->assertStatus(403);
                 });
             });
 
             $this->describe('for a user who is logged in', function () {
                 $this->should('return a 200 response with that user\'s data', function () {
-                    $this->markTestIncomplete();
+                	$token = $this->authenticateUser($this->defaultUser);
+
+                	$headers = [
+            			'Accept' => 'application/json',
+            			'Authorization' => 'Bearer '.$token,
+            		];
+
+                	$response = $this->withHeaders($headers)
+                		->get(route('apiUserMe'));
+                	
+                	$response->assertStatus(200);
+
+                	$data = $this->responseData($response);
+
+                	$this->assertEquals($this->defaultUser->id, $data['id']);
                 });
             });
         });

@@ -99,4 +99,15 @@ return [
         ],
     ],
 
+    'clients' => [
+        'default' => [
+            'name' => env('AUTH_CLIENT_NAME', 'Fresh Tomatoes Password Grant Client'),
+            'secret' => env('AUTH_CLIENT_SECRET', null),
+            'redirect' => 'http://localhost',
+            'personal_access_client' => env('AUTH_CLIENT_PERSONAL_ACCESS', false),
+            'password_client' => env('AUTH_CLIENT_PASSWORD', false),
+            'revoked' => env('AUTH_CLIENT_REVOKED', false),
+        ]
+    ]
+
 ];

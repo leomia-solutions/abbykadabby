@@ -27,5 +27,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
+        Passport::$ignoreCsrfToken = true;
+
+        if (env('APP_ENV') == 'testing') {
+            Passport::personalAccessClientId(1);
+        }
     }
 }

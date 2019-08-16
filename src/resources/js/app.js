@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+var bootstrap = require('./bootstrap')
+
 Vue.use(VueRouter)
 
 import App from './views/App'
 import Welcome from './views/Welcome'
-import List from './views/inventory/List'
+import InventoryList from './views/inventory/InventoryList'
 import Login from './views/users/Login'
 import Register from './views/users/Register'
 
@@ -24,6 +26,7 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue').default
 );
 
+
 const router = new VueRouter({
     mode: 'history',
     routes: [
@@ -34,8 +37,8 @@ const router = new VueRouter({
         },
         {
         	path: '/inventory',
-        	name: 'list',
-        	component: List
+        	name: 'inventory',
+        	component: InventoryList
         },
         {
         	path: '/login',

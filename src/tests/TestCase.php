@@ -61,14 +61,28 @@ abstract class TestCase extends BaseTestCase
      * @return \App\User
      */
     public function createUser(array $params = []): User
-    {
-        return User::create(array_merge([
+    {   
+        $params = array_merge([
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'email' => $this->faker->email,
             'password' => $this->faker->password,
             'api_token' => Str::random(60),
-        ], $params));
+        ], $params);
+
+        return User::create($params);
+    }
+
+    /**
+     * Creates an auth token for the $user
+     * 
+     * @param \App\User $user
+     * 
+     * @return string
+     */
+    public function authenticateUser(User $user): string
+    {
+        return $user->createToken('testing')->accessToken;
     }
 
     /**

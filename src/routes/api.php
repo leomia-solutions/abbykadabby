@@ -28,11 +28,11 @@ Route::middleware(['api'])->group(function () {
     	Route::get('/', 'API\UserController@list')->name('apiUserList');
         Route::post('/', 'API\UserController@create')->name('apiUserCreate');
     });
-});
 
-Route::middleware('auth:api')->group(function () {
-    Route::prefix('users')->group(function () {
-        Route::get('me', 'API\UserController@me')->name('apiUserMe');
-        Route::get('{$id}', 'API\UserController@show')->name('apiUserShow');
-    });
+	Route::middleware('auth:api')->group(function () {
+	    Route::prefix('users')->group(function () {
+	        Route::get('me', 'API\UserController@me')->name('apiUserMe');
+	        Route::get('{$id}', 'API\UserController@show')->name('apiUserShow');
+	    });
+	});
 });

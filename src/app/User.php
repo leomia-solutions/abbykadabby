@@ -23,6 +23,9 @@ use Log;
  * @property string $password
  * @property string $api_token
  *
+ * relationships
+ * @property \Laravel\Passport\Token $token
+ * 
  * dynamic properties
  * @property string $full_name
  */

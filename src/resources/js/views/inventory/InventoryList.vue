@@ -33,12 +33,10 @@
 </template>
 
 <script>
-    import axios from 'axios';
-
     import InventoryTable from "../../components/inventory/InventoryTable"
 
     export default {
-        name: "List",
+        name: "InventoryList",
         components: {
             InventoryTable
         },

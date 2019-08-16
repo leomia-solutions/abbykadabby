@@ -39,8 +39,6 @@
 </template>
 
 <script>
-    import axios from 'axios';
-    
     export default {
         data(){
             return {
@@ -52,13 +50,15 @@
             handleSubmit(e){
                 e.preventDefault()
 
+                // TODO: how do we secure the client ID and secret for authentication?
                 if (this.password.length > 0) {
                     axios.post('oauth/token', {
                         grant_type: 'password',
                         client_id: 1,
                         client_secret: 'ofUApR6EtU5Qg4FnAofJUUFUrr6ojc96ADcNlyJb',
                         username: this.email,
-                        password: this.password
+                        password: this.password,
+                        scope: '*',
                       })
                       .then(response => {
                         localStorage.setItem('jwt',response.data.access_token)

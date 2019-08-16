@@ -9,7 +9,7 @@ class UserTest extends TestCase
 {
     protected $class = User::class;
 
-    public function makeAdmin()
+    public function testMakeAdmin()
     {
         $this->specify($this->class.'::makeAdmin()', function () {
             $this->describe('for a user that is already an admin', function () {
@@ -18,7 +18,7 @@ class UserTest extends TestCase
 
                     $this->assertEquals(['admin'], $user->roles);
                     $user->makeAdmin();
-                    $this->assertEmpty($user->roles);
+                    $this->assertEquals(['admin'], $user->roles);
                 });
             });
 
@@ -34,14 +34,16 @@ class UserTest extends TestCase
         });
     }
 
-    public function revokeAdmin()
+    public function testRevokeAdmin()
     {
         $this->specify($this->class.'::revokeAdmin()', function () {
             $this->describe('for a user who is not an admin', function () {
                 $this->should('not change their roles', function () {
                     $user = $this->createUser(['roles' => ['other']]);
 
-                    $this->assertFalse(in_array('admin'), $user->roles);
+                    dd($user->roles);
+
+                    $this->assertFalse(in_array('admin', $user->roles));
                     $user->revokeAdmin();
                     $this->assertEquals(['other'], $user->roles);
                 });
@@ -51,7 +53,7 @@ class UserTest extends TestCase
                 $this->should('empty their roles list', function () {
                     $user = $this->createUser(['roles' => ['admin']]);
 
-                    $this->assertTrue(in_array('admin'), $user->roles);
+                    $this->assertTrue(in_array('admin', $user->roles));
                     $user->revokeAdmin();
                     $this->assertEmpty($user->roles);
                 });
@@ -61,7 +63,7 @@ class UserTest extends TestCase
                 $this->should('only remove admin from their list of roles', function () {
                     $user = $this->createUser(['roles' => ['admin', 'other']]);
 
-                    $this->assertTrue(in_array('admin'), $user->roles);
+                    $this->assertTrue(in_array('admin', $user->roles));
                     $this->revokeAdmin();
                     $this->assertEquals(['other'], $user->roles);
                 });

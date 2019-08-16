@@ -16,7 +16,7 @@
                         <router-link :to="{ name: 'login' }" class="nav-link" v-if="!isLoggedIn">Login</router-link>
                         <router-link :to="{ name: 'register' }" class="nav-link" v-if="!isLoggedIn">Register</router-link>
                         <li class="nav-link" v-if="isLoggedIn"> Hi, {{name}}</li>
-                        <router-link :to="{ name: 'board' }" class="nav-link" v-if="isLoggedIn">Board</router-link>
+                        <router-link :to="{ name: 'inventory' }" class="nav-link">Inventory</router-link>
                     </ul>
 
                 </div>
@@ -29,16 +29,40 @@
 </template>
 
 <script>
-export default {
-    data(){
-        return {
-            isLoggedIn : null,
-            name : null
+    export default {
+        data(){
+            return {
+                isLoggedIn : null,
+                name : null
+            }
+        },
+        mounted(){
+            this.isLoggedIn = localStorage.getItem('jwt')
+            this.name = localStorage.getItem('user')
+
+            if (this.isLoggedIn && !this.name) {
+                this.getUser()
+            }
+        }, 
+        methods: {
+            getUser() {
+                let headers = {
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+                    } 
+
+                console.log(headers)
+                axios.get("/api/users/me", {
+                    headers: headers
+                })
+                .then(response => {
+                    localStorage.setItem('user',response.data.data.first_name)
+                    this.name = response.data.data.first_name
+                })
+                .catch (function (error) {
+                    console.log(error)
+                })
+            }
         }
-    },
-    mounted(){
-        this.isLoggedIn = localStorage.getItem('jwt')
-        this.name = localStorage.getItem('user')
     }
-}
 </script>
