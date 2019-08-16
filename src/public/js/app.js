@@ -2579,7 +2579,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-// import axios from "axios"
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2684,6 +2683,32 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "InventoryCreateForm",
+  beforeRouteEnter: function beforeRouteEnter(to, from, next) {
+    if (!localStorage.getItem('jwt')) {
+      return next('login');
+    }
+
+    next();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/inventory/InventoryList.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/inventory/InventoryList.vue?vue&type=script&lang=js& ***!
@@ -2693,9 +2718,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_inventory_InventoryTable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/inventory/InventoryTable */ "./resources/js/components/inventory/InventoryTable.vue");
+/* harmony import */ var _components_inventory_InventoryTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/inventory/InventoryTable */ "./resources/js/components/inventory/InventoryTable.vue");
 //
 //
 //
@@ -2730,15 +2753,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InventoryList",
   components: {
-    InventoryTable: _components_inventory_InventoryTable__WEBPACK_IMPORTED_MODULE_1__["default"]
+    InventoryTable: _components_inventory_InventoryTable__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   watch: {
     '$route': "fetchData"
+  },
+  computed: {
+    isLoggedIn: function isLoggedIn() {
+      return localStorage.getItem('jwt');
+    }
   },
   data: function data() {
     return {
@@ -2759,7 +2788,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchData: function fetchData() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/inventory').then(function (response) {
+      axios.get('/api/inventory').then(function (response) {
         _this.inventory.items = response.data.data;
         _this.loading = false;
       })["catch"](function (error) {
@@ -2773,7 +2802,7 @@ __webpack_require__.r(__webpack_exports__);
 
       e.preventDefault();
       this.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('api/inventory', {
+      axios.get('api/inventory', {
         params: {
           description_contains: this.search
         }
@@ -2799,8 +2828,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2841,7 +2868,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2853,10 +2879,10 @@ __webpack_require__.r(__webpack_exports__);
     handleSubmit: function handleSubmit(e) {
       var _this = this;
 
-      e.preventDefault();
+      e.preventDefault(); // TODO: how do we secure the client ID and secret for authentication?
 
       if (this.password.length > 0) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('oauth/token', {
+        axios.post('oauth/token', {
           grant_type: 'password',
           client_id: 1,
           client_secret: 'ofUApR6EtU5Qg4FnAofJUUFUrr6ojc96ADcNlyJb',
@@ -2895,8 +2921,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2961,7 +2985,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2979,7 +3002,7 @@ __webpack_require__.r(__webpack_exports__);
       e.preventDefault();
 
       if (this.password === this.password_confirmation && this.password.length > 0) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/users', {
+        axios.post('/api/users', {
           first_name: this.first_name,
           last_name: this.last_name,
           email: this.email,
@@ -40424,6 +40447,30 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [_vm._v("Create Inventory")])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/inventory/InventoryList.vue?vue&type=template&id=904ca950&":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/inventory/InventoryList.vue?vue&type=template&id=904ca950& ***!
@@ -40443,7 +40490,24 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-8" }, [
         _c("div", { staticClass: "card card-default" }, [
-          _c("div", { staticClass: "card-header" }, [_vm._v("Inventory")]),
+          _c(
+            "div",
+            { staticClass: "card-header" },
+            [
+              _vm._v("Inventory\n                    "),
+              _vm.isLoggedIn
+                ? _c(
+                    "router-link",
+                    {
+                      staticClass: "nav-link",
+                      attrs: { to: { name: "addInventory" } }
+                    },
+                    [_vm._v("Add Inventory")]
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "form-group row" }, [
@@ -55899,14 +55963,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/App */ "./resources/js/views/App.vue");
 /* harmony import */ var _views_Welcome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/Welcome */ "./resources/js/views/Welcome.vue");
 /* harmony import */ var _views_inventory_InventoryList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/inventory/InventoryList */ "./resources/js/views/inventory/InventoryList.vue");
-/* harmony import */ var _views_users_Login__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/users/Login */ "./resources/js/views/users/Login.vue");
-/* harmony import */ var _views_users_Register__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/users/Register */ "./resources/js/views/users/Register.vue");
+/* harmony import */ var _views_inventory_InventoryCreateForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/inventory/InventoryCreateForm */ "./resources/js/views/inventory/InventoryCreateForm.vue");
+/* harmony import */ var _views_users_Login__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/users/Login */ "./resources/js/views/users/Login.vue");
+/* harmony import */ var _views_users_Register__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/users/Register */ "./resources/js/views/users/Register.vue");
 
 
 
-var bootstrap = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
 
 
 
@@ -55926,13 +55992,17 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'inventory',
     component: _views_inventory_InventoryList__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, {
+    path: '/inventory/add',
+    name: 'addInventory',
+    component: _views_inventory_InventoryCreateForm__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }, {
     path: '/login',
     name: 'login',
-    component: _views_users_Login__WEBPACK_IMPORTED_MODULE_5__["default"]
+    component: _views_users_Login__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, {
     path: '/users/register',
     name: 'register',
-    component: _views_users_Register__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _views_users_Register__WEBPACK_IMPORTED_MODULE_7__["default"]
   }]
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
@@ -56553,6 +56623,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Welcome_vue_vue_type_template_id_1ae8ae93_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Welcome_vue_vue_type_template_id_1ae8ae93_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/inventory/InventoryCreateForm.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/views/inventory/InventoryCreateForm.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _InventoryCreateForm_vue_vue_type_template_id_5dc06c1a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InventoryCreateForm.vue?vue&type=template&id=5dc06c1a& */ "./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&");
+/* harmony import */ var _InventoryCreateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InventoryCreateForm.vue?vue&type=script&lang=js& */ "./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _InventoryCreateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InventoryCreateForm_vue_vue_type_template_id_5dc06c1a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InventoryCreateForm_vue_vue_type_template_id_5dc06c1a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/inventory/InventoryCreateForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./InventoryCreateForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_template_id_5dc06c1a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./InventoryCreateForm.vue?vue&type=template&id=5dc06c1a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_template_id_5dc06c1a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_template_id_5dc06c1a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

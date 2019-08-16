@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-var bootstrap = require('./bootstrap')
+require('./bootstrap')
 
 Vue.use(VueRouter)
 
 import App from './views/App'
 import Welcome from './views/Welcome'
 import InventoryList from './views/inventory/InventoryList'
+import InventoryCreateForm from './views/inventory/InventoryCreateForm'
 import Login from './views/users/Login'
 import Register from './views/users/Register'
 
@@ -39,6 +40,11 @@ const router = new VueRouter({
         	path: '/inventory',
         	name: 'inventory',
         	component: InventoryList
+        },
+        {
+            path: '/inventory/add',
+            name: 'addInventory',
+            component: InventoryCreateForm,
         },
         {
         	path: '/login',

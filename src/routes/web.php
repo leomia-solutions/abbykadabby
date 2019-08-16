@@ -26,21 +26,19 @@ Route::middleware(['auth'])->group(function () {
 // Routes that can be accessed by anonymous users
 
 Route::prefix('inventory')->group(function () {
-    Route::get('/', 'InventoryController@list')->name('inventoryList');
-    Route::get('/create', 'InventoryController@create')->name('inventoryCreate');
-    Route::get('/{item}', 'InventoryController@show')->name('inventoryShow');
-    Route::get('/{item}/edit', 'InventoryController@edit')->name('inventoryEdit');
+    Route::get('/', 'Controller@index')->name('inventoryList');
+    Route::get('/add', 'Controller@index')->name('inventoryCreate');
+    Route::get('/{item}', 'Controller@index')->name('inventoryShow');
 });
 
-Route::get('/', 'InventoryController@list');
+Route::get('/', 'Controller@index');
 
 Route::prefix('login')->group(function () {
-    Route::get('/', 'UserController@getLogin')->name('login');
-    Route::post('/', 'UserController@doLogin')->name('doLogin');
+    Route::get('/', 'Controller@index')->name('login');
 });
 
 Route::prefix('users')->group(function () {
-    Route::get('register', 'UserController@register')->name('registerUser');
+    Route::get('register', 'Controller@index')->name('registerUser');
 });
 
-Route::get('forgotPassword', 'UserController@forgotPassword')->name('forgotPassword');
+Route::get('forgotPassword', 'Controller@index')->name('forgotPassword');

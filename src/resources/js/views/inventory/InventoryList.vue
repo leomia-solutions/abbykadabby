@@ -3,7 +3,9 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card card-default">
-                    <div class="card-header">Inventory</div>
+                    <div class="card-header">Inventory
+                        <router-link :to="{ name: 'addInventory' }" class="nav-link" v-if="isLoggedIn">Add Inventory</router-link>
+                    </div>
 
                     <div class="card-body">
                         <div class="form-group row">
@@ -34,7 +36,6 @@
 
 <script>
     import InventoryTable from "../../components/inventory/InventoryTable"
-
     export default {
         name: "InventoryList",
         components: {
@@ -43,7 +44,12 @@
         watch: {
             '$route': "fetchData"
         },
-        data(){
+        computed: {
+            isLoggedIn() {
+                return localStorage.getItem('jwt')
+            }
+        },
+        data() {
             return {
                 loading: true,
                 error: null,
@@ -58,7 +64,7 @@
             // already being observed
             this.fetchData()
         },
-        methods : {
+        methods: {
             fetchData() {
                 axios.get('/api/inventory')
                     .then(response => {
