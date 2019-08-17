@@ -2696,14 +2696,171 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InventoryCreateForm",
+  data: function data() {
+    return {
+      description: null,
+      quantity: null,
+      weight: null,
+      weight_units: null,
+      price: null,
+      price_units: null,
+      errors: {},
+      state: 0
+    };
+  },
+  computed: {
+    descriptionError: function descriptionError() {
+      return this.errors.description;
+    }
+  },
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     if (!localStorage.getItem('jwt')) {
       return next('login');
     }
 
     next();
+  },
+  methods: {
+    validate: function validate() {
+      if (!this.description) {
+        this.errors.description = "You must enter a description.";
+        this.state++;
+      }
+
+      if (typeof this.quantity !== "number") {
+        this.errors.quantity = "Quantity must be a number.";
+        this.state++;
+      }
+
+      if (typeof this.weight !== "number") {
+        this.errors.weight = "Weight must be a number.";
+        this.state++;
+      }
+
+      if (!this.weight) {
+        this.errors.weight = "You must enter a weight.";
+        this.state++;
+      }
+
+      if (!this.weight_units) {
+        this.errors.weight_units = "You must select a weight unit.";
+        this.state++;
+      }
+
+      if (typeof this.price !== "number") {
+        this.errors.price = "Price must be a number.";
+        this.state++;
+      }
+
+      if (!this.price) {
+        this.errors.price = "You must enter a price.";
+        this.state++;
+      }
+
+      if (!this.price_units) {
+        this.errors.price_units = "You must select a price unit.";
+        this.state++;
+      }
+
+      console.log(this.errors);
+      return !this.errors;
+    },
+    handleSubmit: function handleSubmit(e) {
+      var _this = this;
+
+      var headers = {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+      };
+      e.preventDefault();
+
+      if (this.validate()) {
+        axios.post('/api/inventory', {
+          headers: headers,
+          description: this.description,
+          quantity: this.quantity,
+          weight: this.weight,
+          weight_units: this.weight_units,
+          price: this.price,
+          price_units: this.price_units
+        }).then(function (response) {
+          _this.$router.go('inventory');
+        })["catch"](function (error) {
+          alert(error.message);
+        });
+      }
+    }
   }
 });
 
@@ -2719,6 +2876,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_inventory_InventoryTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/inventory/InventoryTable */ "./resources/js/components/inventory/InventoryTable.vue");
+//
 //
 //
 //
@@ -3013,7 +3171,7 @@ __webpack_require__.r(__webpack_exports__);
           localStorage.setItem('jwt', response.data.api_token);
 
           if (localStorage.getItem('jwt') != null) {
-            _this.$router.go('/inventory');
+            _this.$router.go('inventory');
           }
         })["catch"](function (error) {
           console.error(error);
@@ -7551,6 +7709,25 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 // module
 exports.push([module.i, "\n.full-height[data-v-1ae8ae93] {\n    height: 100vh;\n}\n.flex-center[data-v-1ae8ae93] {\n    align-items: center;\n    display: flex;\n    justify-content: center;\n}\n.position-ref[data-v-1ae8ae93] {\n    position: relative;\n}\n.top-right[data-v-1ae8ae93] {\n    position: absolute;\n    right: 10px;\n    top: 18px;\n}\n.content[data-v-1ae8ae93] {\n    text-align: center;\n}\n.title[data-v-1ae8ae93] {\n    font-size: 60px;\n}\n.links > a[data-v-1ae8ae93] {\n    color: #636b6f;\n    padding: 0 25px;\n    font-size: 12px;\n    font-weight: 600;\n    letter-spacing: .1rem;\n    text-decoration: none;\n    text-transform: uppercase;\n}\n.m-b-md[data-v-1ae8ae93] {\n    margin-bottom: 30px;\n    color: #000000;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=style&index=0&id=5dc06c1a&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=style&index=0&id=5dc06c1a&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#price[data-v-5dc06c1a], #weight[data-v-5dc06c1a] { width:265px; display: inline-flex;\n}\n#price_units[data-v-5dc06c1a], #weight_units[data-v-5dc06c1a] { width: 130px; display: inline-flex;\n}\n", ""]);
 
 // exports
 
@@ -38523,6 +38700,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=style&index=0&id=5dc06c1a&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=style&index=0&id=5dc06c1a&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./InventoryCreateForm.vue?vue&type=style&index=0&id=5dc06c1a&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=style&index=0&id=5dc06c1a&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -40447,10 +40654,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a& ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -40462,7 +40669,284 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("Create Inventory")])
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card card-default" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Add an Item to Your Inventory")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "form",
+              { attrs: { method: "POST", action: "/api/inventory" } },
+              [
+                _c("div", { staticClass: "form-group row" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-md-4 col-form-label text-md-right",
+                      attrs: { for: "description" }
+                    },
+                    [_vm._v("Item Description")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _vm._v(
+                      "\n                            \t" +
+                        _vm._s(_vm.errors.description) +
+                        "\n                                "
+                    ),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.description,
+                          expression: "description"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        id: "description",
+                        type: "text",
+                        required: "",
+                        autofocus: ""
+                      },
+                      domProps: { value: _vm.description },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.description = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-md-4 col-form-label text-md-right",
+                      attrs: { for: "quantity" }
+                    },
+                    [_vm._v("Quantity")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.quantity,
+                          expression: "quantity"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        id: "quantity",
+                        type: "number",
+                        required: "",
+                        autofocus: ""
+                      },
+                      domProps: { value: _vm.quantity },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.quantity = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-md-4 col-form-label text-md-right",
+                      attrs: { for: "weight" }
+                    },
+                    [_vm._v("Weight")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.weight,
+                          expression: "weight"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "weight", type: "text", required: "" },
+                      domProps: { value: _vm.weight },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.weight = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.weight_units,
+                            expression: "weight_units"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "weight_units", required: "" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.weight_units = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      [
+                        _c("option", [_vm._v("Select")]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "lb" } }, [
+                          _vm._v("lbs")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "kg" } }, [_vm._v("kg")])
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-md-4 col-form-label text-md-right",
+                      attrs: { for: "price" }
+                    },
+                    [_vm._v("Price ($)")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.price,
+                          expression: "price"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { id: "price", type: "text", required: "" },
+                      domProps: { value: _vm.price },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.price = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" /\n                                "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.price_units,
+                            expression: "price_units"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "price_units", required: "" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.price_units = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      [
+                        _c("option", [_vm._v("Select")]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "lb" } }, [
+                          _vm._v("lbs")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "kg" } }, [
+                          _vm._v("kg")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "ea" } }, [
+                          _vm._v("each")
+                        ])
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row mb-0" }, [
+                  _c("div", { staticClass: "col-md-6 offset-md-4" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" },
+                        on: { click: _vm.handleSubmit }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                    Submit\n                                "
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -40492,14 +40976,15 @@ var render = function() {
         _c("div", { staticClass: "card card-default" }, [
           _c(
             "div",
-            { staticClass: "card-header" },
+            { staticClass: "card-header d-flex" },
             [
-              _vm._v("Inventory\n                    "),
+              _c("span", { staticClass: "ml-auto" }, [_vm._v("Inventory")]),
+              _vm._v(" "),
               _vm.isLoggedIn
                 ? _c(
                     "router-link",
                     {
-                      staticClass: "nav-link",
+                      staticClass: "btn btn-primary ml-auto",
                       attrs: { to: { name: "addInventory" } }
                     },
                     [_vm._v("Add Inventory")]
@@ -40746,7 +41231,7 @@ var render = function() {
                   "label",
                   {
                     staticClass: "col-md-4 col-form-label text-md-right",
-                    attrs: { for: "name" }
+                    attrs: { for: "first_name" }
                   },
                   [_vm._v("First Name")]
                 ),
@@ -56637,9 +57122,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _InventoryCreateForm_vue_vue_type_template_id_5dc06c1a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InventoryCreateForm.vue?vue&type=template&id=5dc06c1a& */ "./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&");
+/* harmony import */ var _InventoryCreateForm_vue_vue_type_template_id_5dc06c1a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&scoped=true& */ "./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&scoped=true&");
 /* harmony import */ var _InventoryCreateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InventoryCreateForm.vue?vue&type=script&lang=js& */ "./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _InventoryCreateForm_vue_vue_type_style_index_0_id_5dc06c1a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InventoryCreateForm.vue?vue&type=style&index=0&id=5dc06c1a&scoped=true&lang=css& */ "./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=style&index=0&id=5dc06c1a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -56647,13 +57134,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _InventoryCreateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _InventoryCreateForm_vue_vue_type_template_id_5dc06c1a___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _InventoryCreateForm_vue_vue_type_template_id_5dc06c1a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _InventoryCreateForm_vue_vue_type_template_id_5dc06c1a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InventoryCreateForm_vue_vue_type_template_id_5dc06c1a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "5dc06c1a",
   null
   
 )
@@ -56679,19 +57166,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&":
-/*!*********************************************************************************************!*\
-  !*** ./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a& ***!
-  \*********************************************************************************************/
+/***/ "./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=style&index=0&id=5dc06c1a&scoped=true&lang=css&":
+/*!***********************************************************************************************************************!*\
+  !*** ./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=style&index=0&id=5dc06c1a&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_style_index_0_id_5dc06c1a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./InventoryCreateForm.vue?vue&type=style&index=0&id=5dc06c1a&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=style&index=0&id=5dc06c1a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_style_index_0_id_5dc06c1a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_style_index_0_id_5dc06c1a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_style_index_0_id_5dc06c1a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_style_index_0_id_5dc06c1a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_style_index_0_id_5dc06c1a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&scoped=true&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&scoped=true& ***!
+  \*********************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_template_id_5dc06c1a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./InventoryCreateForm.vue?vue&type=template&id=5dc06c1a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_template_id_5dc06c1a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_template_id_5dc06c1a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/inventory/InventoryCreateForm.vue?vue&type=template&id=5dc06c1a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_template_id_5dc06c1a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_template_id_5dc06c1a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventoryCreateForm_vue_vue_type_template_id_5dc06c1a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

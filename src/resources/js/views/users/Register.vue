@@ -8,7 +8,7 @@
                     <div class="card-body">
                         <form method="POST" action="/register">
                             <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">First Name</label>
+                                <label for="first_name" class="col-md-4 col-form-label text-md-right">First Name</label>
 
                                 <div class="col-md-6">
                                     <input id="first_name" type="text" class="form-control" v-model="first_name" required autofocus>
@@ -91,7 +91,7 @@
                         localStorage.setItem('jwt',response.data.api_token)
 
                         if (localStorage.getItem('jwt') != null){
-                            this.$router.go('/inventory')
+                            this.$router.go('inventory')
                         }
                       })
                       .catch(error => {

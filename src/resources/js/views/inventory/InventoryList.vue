@@ -3,8 +3,9 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card card-default">
-                    <div class="card-header">Inventory
-                        <router-link :to="{ name: 'addInventory' }" class="nav-link" v-if="isLoggedIn">Add Inventory</router-link>
+                    <div class="card-header d-flex">
+                        <span class="ml-auto">Inventory</span>
+                        <router-link :to="{ name: 'addInventory' }" class="btn btn-primary ml-auto" v-if="isLoggedIn">Add Inventory</router-link>
                     </div>
 
                     <div class="card-body">
